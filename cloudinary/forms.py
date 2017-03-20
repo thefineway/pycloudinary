@@ -127,9 +127,9 @@ class CloudinaryFileField(forms.FileField):
     def to_python(self, value):
         """Upload and convert to CloudinaryResource"""
         value = super(CloudinaryFileField, self).to_python(value)
-        value.name = django.utils.encoding.escape_uri_path(value.name)
         if not value:
             return None
+        value.name = django.utils.encoding.escape_uri_path(value.name)
         if self.autosave:
             return cloudinary.uploader.upload_image(value, **self.options)
         else:
