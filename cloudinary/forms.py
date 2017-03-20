@@ -5,6 +5,7 @@ import cloudinary.utils
 import re
 import json
 from django.utils.translation import ugettext_lazy as _
+import django.utils.encoding
 
 
 def cl_init_js_callbacks(form, request):
@@ -126,6 +127,7 @@ class CloudinaryFileField(forms.FileField):
     def to_python(self, value):
         """Upload and convert to CloudinaryResource"""
         value = super(CloudinaryFileField, self).to_python(value)
+        value.name = django.utils.encoding.escape_uri_path(value.name)
         if not value:
             return None
         if self.autosave:
