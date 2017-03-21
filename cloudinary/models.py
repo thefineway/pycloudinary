@@ -64,11 +64,13 @@ class CloudinaryField(models.Field):
         return self.parse_cloudinary_resource(value)
 
     def to_python(self, value):
-        if isinstance(value, CloudinaryResource):
-            return value
-        elif isinstance(value, UploadedFile):
-            return value
-        elif value is None:
+        # if isinstance(value, CloudinaryResource):
+        #     return value
+        # elif isinstance(value, UploadedFile):
+        #     return value
+        # elif value is None:
+        #     return value
+        if not isinstance(value, basestring):
             return value
         else:
             return self.parse_cloudinary_resource(value)
